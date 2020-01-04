@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.addapp.pickers.adapter.ArrayWheelAdapter;
+import cn.addapp.pickers.entity.Area;
 import cn.addapp.pickers.entity.City;
-import cn.addapp.pickers.entity.County;
 import cn.addapp.pickers.entity.Province;
 import cn.addapp.pickers.listeners.OnItemPickListener;
 import cn.addapp.pickers.listeners.OnLinkageListener;
@@ -26,7 +26,6 @@ import cn.addapp.pickers.widget.WheelView;
  * blog: addapp.cn
  * @see Province
  * @see City
- * @see County
  */
 public class AddressPicker extends LinkagePicker {
     private OnLinkageListener onLinkageListener;
@@ -58,7 +57,7 @@ public class AddressPicker extends LinkagePicker {
         return getSelectedProvince().getCities().get(selectedSecondIndex);
     }
 
-    public County getSelectedCounty() {
+    public Area getSelectedCounty() {
         return getSelectedCity().getCounties().get(selectedThirdIndex);
     }
 
@@ -336,7 +335,7 @@ public class AddressPicker extends LinkagePicker {
         if (onLinkageListener != null) {
             Province province = getSelectedProvince();
             City city = getSelectedCity();
-            County county = null;
+            Area county = null;
             if (!hideCounty) {
                 county = getSelectedCounty();
             }
@@ -382,7 +381,7 @@ public class AddressPicker extends LinkagePicker {
             //添加省
             for (int x = 0; x < provinceSize; x++) {
                 Province pro = data.get(x);
-                firstList.add(pro.getAreaName());
+                firstList.add(pro.getProvince());
                 List<City> cities = pro.getCities();
                 List<String> xCities = new ArrayList<>();
                 List<List<String>> xCounties = new ArrayList<>();
@@ -390,19 +389,19 @@ public class AddressPicker extends LinkagePicker {
                 //添加地市
                 for (int y = 0; y < citySize; y++) {
                     City cit = cities.get(y);
-                    cit.setProvinceId(pro.getAreaId());
-                    xCities.add(cit.getAreaName());
-                    List<County> counties = cit.getCounties();
+                    cit.setFather(pro.getProvince_id());
+                    xCities.add(cit.getCity());
+                    List<Area> counties = cit.getCounties();
                     ArrayList<String> yCounties = new ArrayList<>();
                     int countySize = counties.size();
                     //添加区县
                     if (countySize == 0) {
-                        yCounties.add(cit.getAreaName());
+                        yCounties.add(cit.getCity());
                     } else {
                         for (int z = 0; z < countySize; z++) {
-                            County cou = counties.get(z);
-                            cou.setCityId(cit.getAreaId());
-                            yCounties.add(cou.getAreaName());
+                            Area cou = counties.get(z);
+                            cou.setFather(cit.getCity_id());
+                            yCounties.add(cou.getArea());
                         }
                     }
                     xCounties.add(yCounties);

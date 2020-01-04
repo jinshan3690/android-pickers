@@ -14,8 +14,8 @@ import java.util.Locale;
 
 import cn.addapp.androidpicker.R;
 import cn.addapp.pickers.common.LineConfig;
+import cn.addapp.pickers.entity.Area;
 import cn.addapp.pickers.entity.City;
-import cn.addapp.pickers.entity.County;
 import cn.addapp.pickers.entity.Province;
 import cn.addapp.pickers.listeners.OnItemPickListener;
 import cn.addapp.pickers.listeners.OnLinkageListener;
@@ -377,11 +377,11 @@ public class MainActivity extends BaseActivity {
             }
 
             @Override
-            public void onAddressPicked(Province province, City city, County county) {
+            public void onAddressPicked(Province province, City city, Area county) {
                 if (county == null) {
-                    showToast(province.getAreaName() + city.getAreaName());
+                    showToast(province.getProvince() + city.getCity());
                 } else {
-                    showToast(province.getAreaName() + city.getAreaName() + county.getAreaName());
+                    showToast(province.getProvince() + city.getCity() + county.getArea());
                 }
             }
         });
@@ -391,7 +391,7 @@ public class MainActivity extends BaseActivity {
     public void onAddress2Picker(View view) {
         try {
             ArrayList<Province> data = new ArrayList<>();
-            String json = ConvertUtils.toString(getAssets().open("city2.json"));
+            String json = ConvertUtils.toString(getAssets().open("city1.json"));
             data.addAll(JSON.parseArray(json, Province.class));
             AddressPicker picker = new AddressPicker(this, data);
             picker.setCanLoop(true);
@@ -400,7 +400,7 @@ public class MainActivity extends BaseActivity {
             picker.setSelectedItem("贵州", "贵阳", "花溪");
             picker.setOnLinkageListener(new OnLinkageListener() {
                 @Override
-                public void onAddressPicked(Province province, City city, County county) {
+                public void onAddressPicked(Province province, City city, Area county) {
                     showToast("province : " + province + ", city: " + city + ", county: " + county);
                 }
             });
@@ -421,8 +421,8 @@ public class MainActivity extends BaseActivity {
             }
 
             @Override
-            public void onAddressPicked(Province province, City city, County county) {
-                showToast(province.getAreaName() + " " + city.getAreaName());
+            public void onAddressPicked(Province province, City city, Area county) {
+                showToast(province.getProvince() + " " + city.getCity());
             }
         });
         task.execute("四川", "阿坝");

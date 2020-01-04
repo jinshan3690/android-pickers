@@ -2,10 +2,11 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
         //2.3.3 jitpack 发布用的版本
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.5.2'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
     }
 }
@@ -24,6 +25,7 @@ allprojects {
         flatDir {
             dirs 'libs' //本地aar文件
         }
+        google()
     }
 
 
@@ -44,7 +46,7 @@ subprojects {
         if (hasAppPlugin || hasLibPlugin) {
             android {
                 compileSdkVersion COMPILE_SDK_VERSION as int
-                buildToolsVersion BUILD_TOOL_VERSION
+//                buildToolsVersion BUILD_TOOL_VERSION
 //                aaptOptions {
 //                    cruncherEnabled = false
 //                    useNewCruncher = false
@@ -91,9 +93,9 @@ subprojects {
             }
             dependencies {
                 //自己项目加入版本覆盖依赖包的版本
-                compile "com.android.support:support-v4:${ANDROID_SUPPORT_VERSION}"
-                compile "com.android.support:support-annotations:${ANDROID_SUPPORT_VERSION}"
-                compile "com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"
+                implementation "com.android.support:support-v4:${ANDROID_SUPPORT_VERSION}"
+                implementation "com.android.support:support-annotations:${ANDROID_SUPPORT_VERSION}"
+                implementation "com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"
             }
         }
 //        if (project.isLibrary) {

@@ -1,32 +1,60 @@
 package cn.addapp.pickers.entity;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
-/**
- * 地市
- * <br/>
- * Author:matt : addapp.cn
- * DateTime:2016-10-15 19:07
- *
- */
-public class City extends ItemBean {
-    private String provinceId;
-    private List<County> counties = new ArrayList<County>();
+public class City implements Serializable {
 
-    public String getProvinceId() {
-        return provinceId;
+    /**
+     * id : 1
+     * city_id : 110100
+     * city : 市辖区
+     * father : 110000
+     */
+
+    private String id;
+    private String city_id;
+    private String city;
+    private String father;
+    private List<Area> counties;
+
+    public String getId() {
+        return id;
     }
 
-    public void setProvinceId(String provinceId) {
-        this.provinceId = provinceId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public List<County> getCounties() {
+    public String getCity_id() {
+        return city_id;
+    }
+
+    public void setCity_id(String city_id) {
+        this.city_id = city_id;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getFather() {
+        return father;
+    }
+
+    public void setFather(String father) {
+        this.father = father;
+    }
+
+    public List<Area> getCounties() {
         return counties;
     }
 
-    public void setCounties(List<County> counties) {
+    public void setCounties(List<Area> counties) {
         this.counties = counties;
     }
 
